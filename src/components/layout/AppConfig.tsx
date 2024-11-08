@@ -1,12 +1,10 @@
 'use client';
 
 import { PrimeReactContext } from 'primereact/api';
-import { Button } from 'primereact/button';
-import { InputSwitch, InputSwitchChangeEvent } from 'primereact/inputswitch';
 import { RadioButton, RadioButtonChangeEvent } from 'primereact/radiobutton';
 import { Sidebar } from 'primereact/sidebar';
-import { classNames } from 'primereact/utils';
-import React, { useContext, useEffect, useState } from 'react';
+
+import React, { useContext, useEffect } from 'react';
 import { AppConfigProps, LayoutConfig, LayoutState } from '../../lib/types';
 import { LayoutContext } from '../../context/layoutcontext';
 
@@ -23,19 +21,21 @@ const AppConfig = (props: AppConfigProps) => {
     };
 
     const changeInputStyle = (e: RadioButtonChangeEvent) => {
-        setLayoutConfig((prevState: LayoutConfig) => ({ ...prevState, inputStyle: e.value }));
-    };
-
-    const changeMenuMode = (e: RadioButtonChangeEvent) => {
-        setLayoutConfig((prevState: LayoutConfig) => ({ ...prevState, menuMode: e.value }));
+        setLayoutConfig((prevState: LayoutConfig) => ({
+            ...prevState,
+            inputStyle: e.value
+        }));
     };
 
     const _changeTheme = (theme: string, colorScheme: string) => {
         changeTheme?.(layoutConfig.theme, theme, 'theme-css', () => {
-            setLayoutConfig((prevState: LayoutConfig) => ({ ...prevState, theme, colorScheme }));
+            setLayoutConfig((prevState: LayoutConfig) => ({
+                ...prevState,
+                theme,
+                colorScheme
+            }));
         });
     };
-
     return (
         <>
             <button className="layout-config-button config-link" type="button" onClick={onConfigButtonClick}>
