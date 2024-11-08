@@ -6,7 +6,6 @@ import { PrimeReactContext } from 'primereact/api';
 export const LayoutContext = createContext({} as LayoutContextProps);
 
 export const LayoutProvider = ({ children }: ChildContainerProps) => {
-    // Default layout config
     const defaultLayoutConfig: LayoutConfig = {
         inputStyle: 'outlined',
         menuMode: 'static',
@@ -14,7 +13,6 @@ export const LayoutProvider = ({ children }: ChildContainerProps) => {
         theme: 'lara-light-indigo',
     };
 
-    // Initialize state with default config
     const [layoutConfig, setLayoutConfig] = useState<LayoutConfig>(defaultLayoutConfig);
     const { changeTheme } = useContext(PrimeReactContext);
 
@@ -37,7 +35,6 @@ export const LayoutProvider = ({ children }: ChildContainerProps) => {
                     ...parsedConfig
                 }));
 
-                console.log('lox')
                 if (parsedConfig.theme && parsedConfig.theme !== defaultLayoutConfig.theme) {
                     changeTheme?.(defaultLayoutConfig.theme, parsedConfig.theme, 'theme-css');
                 }
@@ -47,7 +44,6 @@ export const LayoutProvider = ({ children }: ChildContainerProps) => {
         }
     }, [changeTheme]);
 
-    // Save layoutConfig to localStorage whenever it changes
     useEffect(() => {
         localStorage.setItem('layoutConfig', JSON.stringify(layoutConfig));
     }, [layoutConfig]);

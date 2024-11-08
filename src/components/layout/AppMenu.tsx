@@ -9,9 +9,6 @@ import { AppMenuItem } from '../../lib/types';
 import { NavigationMenuConfig } from '@/src/config/navigationMenuConfig';
 
 const AppMenu = () => {
-
-
-
     return (
         <MenuProvider>
             <ul className="layout-menu">
