@@ -54,6 +54,8 @@ const Dashboard = () => {
         setDeposits((prevDeposits) =>
             prevDeposits.map((deposit) => (deposit.id === updatedDeposit.id ? updatedDeposit : deposit))
         );
+        depositService.updateDepositById(updatedDeposit.id, updatedDeposit)
+            .then()
         closeEdit();
     };
 

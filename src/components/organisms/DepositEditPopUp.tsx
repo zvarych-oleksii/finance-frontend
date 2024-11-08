@@ -1,9 +1,10 @@
-import React from 'react';
+import React, { useRef } from 'react';
 import { Dialog } from 'primereact/dialog';
 import DepositEditForm from '@/src/components/molecules/DepositEditForm';
 import { Deposit } from '@/src/lib/types/deposit';
 import { Button } from 'primereact/button';
 import { DepositEditFormData } from '@/src/lib/schemas/deposit/depositEditSchema';
+import DepositPopUpHeader from '@/src/components/molecules/DepositPopUpHeader';
 
 interface DepositEditPopUpProps {
     deposit: Deposit;
@@ -18,16 +19,23 @@ const DepositEditPopUp: React.FC<DepositEditPopUpProps> = ({ deposit, visible, o
         onClose();
     };
 
+    const submitRef = useRef<HTMLButtonElement | null >(null);
+
     const footerContent = (
         <span className="p-buttonset flex">
             <Button label="Cancel" icon="pi pi-times" onClick={onClose} />
-            <Button label="Save" icon="pi pi-check" />
+            <Button label="Save" icon="pi pi-check" onClick={() => submitRef.current && submitRef.current.click()}/>
         </span>
     );
 
     return (
-        <Dialog header="Edit Deposit" visible={visible} style={{ width: '50vw' }} onHide={onClose} footer={footerContent}>
-            <DepositEditForm defaultValues={deposit} onSubmit={handleFormSubmit} onCancel={onClose} formId="deposit-edit-form" />
+        <Dialog
+            header={<DepositPopUpHeader status={deposit.status} accountNumber={deposit.accountNumber}></DepositPopUpHeader>}
+            visible={visible}
+            style={{ width: '50vw' }}
+            onHide={onClose}
+            footer={footerContent}>
+            <DepositEditForm submitRef={submitRef} depositToEdit={deposit} onSubmit={handleFormSubmit} formId="deposit-edit-form" />
         </Dialog>
     );
 };

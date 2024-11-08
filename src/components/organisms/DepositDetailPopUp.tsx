@@ -1,8 +1,10 @@
 // DepositDetailPopUp.tsx
 import React from 'react';
 import { Dialog } from 'primereact/dialog';
-import { Deposit } from '@/src/lib/types/deposit'; // Adjust the import path based on your structure
+import { Deposit, Status } from '@/src/lib/types/deposit'; // Adjust the import path based on your structure
 import { Button } from 'primereact/button';
+import StatusBadge from '@/src/components/atoms/StatusBadge';
+import DepositPopUpHeader from '@/src/components/molecules/DepositPopUpHeader';
 
 interface DepositDetailPopUpProps {
     deposit: Deposit | null;
@@ -16,7 +18,7 @@ const DepositDetailPopUp: React.FC<DepositDetailPopUpProps> = ({ deposit, visibl
 
     return (
         <Dialog
-            header={`Details for Account ${deposit.accountNumber}`}
+            header={<DepositPopUpHeader status={deposit.status} accountNumber={deposit.accountNumber}></DepositPopUpHeader>}
             visible={visible}
             style={{ width: '50vw' }}
             onHide={onClose}
